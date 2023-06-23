@@ -1,41 +1,39 @@
-import { ChangeEvent, useState } from "react"
+import { type ChangeEvent, useState } from 'react'
 
-type FormState =  {
-    [key: string]: string;
+interface FormState {
+
+  email: string
+  password: string
 }
 
-type Props = {
-    formState: FormState;
-    handleChange:(event: ChangeEvent<HTMLInputElement>) => void;
-    handleReset: () => void;
+interface Props extends FormState {
+  formState: FormState
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void
+  handleReset: () => void
 }
 
+export const useForm = (initialForm: FormState): Props => {
+  const [formState, setFormState] = useState<FormState>(initialForm)
 
-export const useForm = (initialForm: FormState = {}): Props => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target
 
-    const [formState, setFormState] = useState<FormState>(initialForm)
-
-    const handleChange = (event:ChangeEvent<HTMLInputElement>):void => {
-        const { name, value} = event.target
-
-        setFormState(
-            {
-                ...formState,
-                [name]: value
-            }
-        )
-
-    }
-
-    const handleReset = (): void => {
-        setFormState(initialForm)
-    }
-
-    return{
+    setFormState(
+      {
         ...formState,
-        formState,
-        handleChange,
-        handleReset
-    }
+        [name]: value
+      }
+    )
+  }
 
+  const handleReset = (): void => {
+    setFormState(initialForm)
+  }
+
+  return {
+    ...formState,
+    formState,
+    handleChange,
+    handleReset
+  }
 }

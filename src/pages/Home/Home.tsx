@@ -1,5 +1,10 @@
-export const Home = () => {
+import { DesktopNavbar, MenuLeft } from './components'
+export const Home: React.FC = () => {
   return (
-    <div>Home</div>
+    <>
+    {/* <MobileNavbar/> */}
+    <DesktopNavbar/>
+    <MenuLeft/>
+    </>
   )
 }

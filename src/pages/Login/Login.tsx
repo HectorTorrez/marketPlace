@@ -1,15 +1,12 @@
-import { Link } from "react-router-dom"
-import { useForm } from "../../hooks/useForm"
-import { ChangeEvent } from "react"
-import { checkingAuthentication } from "../../store/auth/thunk"
-import { useDispatch } from "react-redux"
+import { Link } from 'react-router-dom'
+import { useForm } from '../../hooks/useForm'
+import { checkingAuthentication } from '../../store/auth/thunk'
+import { useDispatch } from 'react-redux'
 
-export const Login = () => {
-
-
+export const Login: React.FC = () => {
   const { formState, handleChange } = useForm(
-
     {
+      displayName: 'Hector',
       email: 'hector@correo.com',
       password: '123456'
     }
@@ -17,12 +14,16 @@ export const Login = () => {
 
   const dispatch = useDispatch()
 
-  const handleSubmit = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault()
 
-    dispatch( checkingAuthentication())
+    dispatch(checkingAuthentication())
+
     console.log(formState)
   }
+  // const handleGoogleSignIn = () => {
+  //   dispatch(startGoogleSignIn())
+  // }
 
   return (
     <section className="h-screen  flex items-center justify-center">
@@ -34,7 +35,7 @@ export const Login = () => {
           </p>
         </section>
 
-        <section  className="flex justify-center flex-col gap-10 w-4/5 ">
+        <form onSubmit={handleSubmit} className="flex justify-center flex-col gap-10 w-4/5 ">
           <label
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
@@ -64,26 +65,27 @@ export const Login = () => {
 
           <section className="flex flex-col gap-5">
             <button
-              onClick={handleSubmit}
+              type='submit'
+
               className="bg-buttons text-xl py-2 rounded-md hover:opacity-70 "
             >
               Sign In
             </button>
-            <button
-            //   onClick={handleLoginWithGoogle}
+            {/* <button
+              onClick={handleGoogleSignIn}
               className="bg-white  hover:opacity-70 text-xl py-2 rounded-md"
             >
               Login with Google
-            </button>
+            </button> */}
           </section>
-        </section>
+        </form>
         <Link className="mt-3 text-blue-700" to="/reset-password">
           <p>Forgot your password?</p>
         </Link>
 
         <section className="mt-10 flex justify-end w-4/5 ">
           <p className=" text-slate-400">
-            Don't have an Account? {""}
+            Don't have an Account? {''}
             <Link className="text-blue-700" to="/register">
               Register
             </Link>
