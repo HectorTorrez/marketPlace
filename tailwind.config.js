@@ -8,7 +8,8 @@ export default {
     extend: {},
     colors: {
       inputs: '#f3f2f3',
-      buttons: '#22b9ca'
+      buttons: '#22b9ca',
+      white: '#fff'
     }
   },
   plugins: []
