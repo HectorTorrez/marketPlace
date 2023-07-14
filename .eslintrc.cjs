@@ -30,6 +30,11 @@ module.exports = {
   ],
   rules: {
     'react/react-in-jsx-scope': 'off',
-    'react/jsx-uses-react': 'off'
+    'react/jsx-uses-react': 'off',
+    '@typescript-eslint/no-misused-promises': [2, {
+      checksVoidReturn: {
+        attributes: false
+      }
+    }]
   }
 }
