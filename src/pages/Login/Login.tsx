@@ -1,30 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useForm } from '../../hooks/useForm'
-import { checkingAuthentication } from '../../store/auth/thunk'
-import { useDispatch } from 'react-redux'
 
 export const Login: React.FC = () => {
-  const { formState, handleChange } = useForm(
-    {
-      displayName: 'Hector',
-      email: 'hector@correo.com',
-      password: '123456'
-    }
-  )
-
-  const dispatch = useDispatch()
-
-  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    e.preventDefault()
-
-    dispatch(checkingAuthentication())
-
-    console.log(formState)
-  }
-  // const handleGoogleSignIn = () => {
-  //   dispatch(startGoogleSignIn())
-  // }
-
   return (
     <section className="h-screen  flex items-center justify-center">
       <section className="flex flex-col text-center lg:w-1/2 w-auto  justify-center items-center align-middle  bg-indigo-50 py-10 lg:py-32 max-w-3xl  rounded-md">
@@ -35,7 +11,7 @@ export const Login: React.FC = () => {
           </p>
         </section>
 
-        <form onSubmit={handleSubmit} className="flex justify-center flex-col gap-10 w-4/5 ">
+        <form className="flex justify-center flex-col gap-10 w-4/5 ">
           <label
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
@@ -46,7 +22,7 @@ export const Login: React.FC = () => {
               type="email"
               placeholder="Enter your email"
               name="email"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </label>
           <label
@@ -59,7 +35,7 @@ export const Login: React.FC = () => {
               type="password"
               placeholder="Enter your password"
               name="password"
-              onChange={handleChange}
+              // onChange={handleChange}
             />
           </label>
 
@@ -85,7 +61,7 @@ export const Login: React.FC = () => {
 
         <section className="mt-10 flex justify-end w-4/5 ">
           <p className=" text-slate-400">
-            Don't have an Account? {''}
+            Don&apos;t have an Account? {''}
             <Link className="text-blue-700" to="/register">
               Register
             </Link>
