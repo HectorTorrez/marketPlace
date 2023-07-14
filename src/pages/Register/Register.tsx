@@ -1,43 +1,43 @@
 import { Link } from 'react-router-dom'
-import { useForm } from '../../hooks/useForm'
-import { startCreatingUserWithEmailPassword } from '../../store/auth/thunk'
-import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { supabase } from '../../supabase/client'
 
-interface FormState {
-
+interface RegisterProps {
   email: string
   password: string
-}
-
-type handleChangeType = (event: React.ChangeEvent<HTMLInputElement>) => void
-
-interface FormValue {
-
-  email: string
-  password: string
-  formState: FormState
-  handleChange: handleChangeType
 }
 
 export const Register: React.FC = () => {
-  const { email, password, formState, handleChange }: FormValue = useForm({
-    email: 'hector@correo.com',
-    password: '123456'
+  const [register, setRegister] = useState<RegisterProps>({
+    email: '',
+    password: ''
   })
 
-  const dispatch = useDispatch()
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target
+    setRegister({
+      ...register,
+      [name]: value
+    })
+  }
 
-  // const handleSubmit = (event: React.ChangeEvent): void => {
-  //   event.preventDefault()
-  //   dispatch(startCreatingUserWithEmailPassword(email, password))
-  //   console.log(formState)
-  // }
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    const { data, error } = await supabase.auth.signUp({
+      email: register.email,
+      password: register.password
+    })
+    console.log(data)
+    console.log(error)
+  }
+
+  console.log(register)
 
   return (
     <section className="h-screen  flex items-center justify-center">
 
     <form
-      // onSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       className="flex flex-col text-center lg:w-1/2 w-auto  justify-center items-center align-middle  bg-indigo-50 py-10 lg:py-32 max-w-3xl rounded-md "
     >
       <section className="pb-10 px-10">
@@ -48,34 +48,20 @@ export const Register: React.FC = () => {
       </section>
 
       <section className="flex  flex-col gap-10 w-4/5 ">
-      <label
-          htmlFor="displayName"
-          className=" bg-white rounded-md flex items-center justify-center pl-2"
-        >
-          {/* <FontAwesomeIcon icon={faEnvelope} /> */}
-          <input
-            // onChange={handleChange}
-            className="p-2  w-full outline-none border-none lg:text-xl"
-            type="text"
-            placeholder="Enter your name"
-            name="displayName"
-            value={displayName}
-            onChange={handleChange}
-          />
-        </label>
+
         <label
           htmlFor="email"
           className=" bg-white rounded-md flex items-center justify-center pl-2"
         >
           {/* <FontAwesomeIcon icon={faEnvelope} /> */}
           <input
-            // onChange={handleChange}
+            onChange={handleChange}
             className="p-2  w-full outline-none border-none lg:text-xl"
             type="email"
             placeholder="Enter your email"
             name="email"
-            value={email}
-            onChange={handleChange}
+            value={register.email}
+
           />
         </label>
         <label
@@ -84,13 +70,12 @@ export const Register: React.FC = () => {
         >
           {/* <FontAwesomeIcon icon={faLock} /> */}
           <input
-            // onChange={handleChange}
+            onChange={handleChange}
             className="p-2  w-full outline-none border-none lg:text-xl "
             type="password"
             placeholder="Enter your password"
             name="password"
-            value={password}
-            onChange={handleChange}
+            value={register.password}
             autoComplete="current-password"
           />
         </label>
