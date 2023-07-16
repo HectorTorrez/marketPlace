@@ -1,24 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface AuthState {
-  name: string | null
   email: string | null
   userId: number | null
-  isLoading: boolean
+  login: boolean
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    name: null,
     email: null,
     userId: null,
-    isLoading: false
+    login: false
   },
   reducers: {
     addUser: (state, action) => {
-      const { name, email, userId } = action.payload
+      const { email, id } = action.payload
+      state.email = email
+      state.userId = id
+      state.login = true
     }
   }
 })
-export const { } = authSlice.actions
+export const { addUser } = authSlice.actions

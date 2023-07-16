@@ -1,8 +1,52 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { supabase } from '../../supabase/client'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { getUser } from '../../store/auth/thunk'
+import { type RootState } from '../../store/store'
+import { type ThunkDispatch, type Action } from '@reduxjs/toolkit'
 
 export const Login: React.FC = () => {
+  const [loginUser, setLoginUser] = useState({
+    email: '',
+    password: ''
+  })
+  const [newError, setNewError] = useState('')
+
+  const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
+  const navigate = useNavigate()
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = event.target
+    setLoginUser({
+      ...loginUser,
+      [name]: value
+    })
+  }
+
+  const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: loginUser.email,
+        password: loginUser.password
+
+      })
+      if (error != null) {
+        setNewError(error?.message); return
+      }
+      void dispatch(getUser(data.user?.email, data.user?.id))
+      console.log(error)
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <section className="h-screen  flex items-center justify-center">
+      <p>{newError}</p>
       <section className="flex flex-col text-center lg:w-1/2 w-auto  justify-center items-center align-middle  bg-indigo-50 py-10 lg:py-32 max-w-3xl  rounded-md">
         <section className="pb-10 px-10">
           <h2 className="font-bold text-3xl lg:text-7xl mb-4">Welcome Back</h2>
@@ -11,7 +55,7 @@ export const Login: React.FC = () => {
           </p>
         </section>
 
-        <form className="flex justify-center flex-col gap-10 w-4/5 ">
+        <form onSubmit={handleSubmit} className="flex justify-center flex-col gap-10 w-4/5 ">
           <label
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
@@ -22,7 +66,7 @@ export const Login: React.FC = () => {
               type="email"
               placeholder="Enter your email"
               name="email"
-              // onChange={handleChange}
+              onChange={handleChange}
             />
           </label>
           <label
@@ -35,7 +79,7 @@ export const Login: React.FC = () => {
               type="password"
               placeholder="Enter your password"
               name="password"
-              // onChange={handleChange}
+              onChange={handleChange}
             />
           </label>
 

@@ -23,12 +23,21 @@ export const Register: React.FC = () => {
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    const { data, error } = await supabase.auth.signUp({
-      email: register.email,
-      password: register.password
-    })
-    console.log(data)
-    console.log(error)
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: register.email,
+        password: register.password
+      })
+      console.log(data)
+      console.log(error)
+      setRegister({
+        email: '',
+        password: ''
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   console.log(register)
