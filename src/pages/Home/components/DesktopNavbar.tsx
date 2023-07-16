@@ -1,28 +1,12 @@
 import { HiOutlineMail } from 'react-icons/hi'
 import { BiWallet, BiNotification } from 'react-icons/bi'
 import { CiSearch } from 'react-icons/ci'
-import ReactNiceAvatar, { genConfig } from 'react-nice-avatar'
+import ReactNiceAvatar, { type AvatarFullConfig, genConfig } from 'react-nice-avatar'
 import { Link, NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { type RootState } from '../../../store'
 
-// interface configAvatar {
-//   sex: string
-//   faceColor: string
-//   earSize: string
-//   eyeStyle: string
-//   noseStyle: string
-//   mouthStyle: string
-//   shirtStyle: string
-//   glassesStyle: string
-//   hairColor: string
-//   hairStyle: string
-//   hatStyle: string
-//   hatColor: string
-//   eyeBrowStyle: string
-//   shirtColor: string
-//   bgColor: string
-// }
-
-const config = {
+const config: AvatarFullConfig = {
   sex: 'woman',
   faceColor: '#F9C9B6',
   earSize: 'big',
@@ -40,6 +24,8 @@ const config = {
   bgColor: '#FFEDEF'
 }
 export const DesktopNavbar: React.FC = () => {
+  const { login, email } = useSelector((state: RootState) => state.auth)
+
   const myConfig = genConfig(config)
   return (
     <header className='flex justify-between pt-4 px-5 shadow-md items-center'>
@@ -59,11 +45,25 @@ export const DesktopNavbar: React.FC = () => {
               <li className='p-2 rounded-full bg-inputs'><BiNotification/></li>
               <li className='p-2 rounded-full bg-inputs'><BiWallet/></li>
           </section>
-          <section className='flex gap-2 items-center'>
-          <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
-            <p className='text-sm font-bold'>Victoria</p>
+
+            {
+              (login)
+                ? (
+                <section className='flex gap-2 items-center'>
+                <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
+                  <p className='text-sm font-bold'>{email}</p>
+
+                </section>
+                  )
+                : (
+                <section className='flex gap-2 items-center'>
+
+                  <Link to={'/login'} className='text-sm font-bold'>Login</Link>
+
+                </section>
+                  )
+            }
           </section>
-        </section>
 
     </header>
   )
