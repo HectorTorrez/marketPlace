@@ -60,7 +60,7 @@ export const Login: React.FC = () => {
             htmlFor="email"
             className=" bg-white rounded-md flex items-center justify-center pl-2"
           >
-            {/* <FontAwesomeIcon icon={faEnvelope} /> */}
+
             <input
               className="p-2  w-full outline-none border-none lg:text-xl"
               type="email"
@@ -73,7 +73,7 @@ export const Login: React.FC = () => {
             htmlFor="password"
             className="bg-white rounded-md flex items-center justify-center pl-2"
           >
-            {/* <FontAwesomeIcon icon={faLock} /> */}
+
             <input
               className="p-2  w-full outline-none border-none lg:text-xl "
               type="password"
@@ -91,12 +91,7 @@ export const Login: React.FC = () => {
             >
               Sign In
             </button>
-            {/* <button
-              onClick={handleGoogleSignIn}
-              className="bg-white  hover:opacity-70 text-xl py-2 rounded-md"
-            >
-              Login with Google
-            </button> */}
+
           </section>
         </form>
         <Link className="mt-3 text-blue-700" to="/reset-password">
