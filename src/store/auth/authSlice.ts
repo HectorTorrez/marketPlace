@@ -19,7 +19,23 @@ export const authSlice = createSlice({
       state.email = email
       state.userId = id
       state.login = true
+    },
+
+    onSession: (state, action) => {
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (action.payload === null) {
+        state.login = false
+      } else {
+        state.login = true
+        state.userId = action.payload?.user.id
+        state.email = action.payload?.user.email
+      }
+    },
+    logout: (state) => {
+      state.email = null
+      state.userId = null
+      state.login = false
     }
   }
 })
-export const { addUser } = authSlice.actions
+export const { addUser, onSession } = authSlice.actions
