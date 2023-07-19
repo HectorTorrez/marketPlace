@@ -6,7 +6,17 @@ import { getSession } from '../../store/auth/thunk'
 import { type Session } from '@supabase/supabase-js'
 import { type ThunkDispatch, type Action } from '@reduxjs/toolkit'
 import { type RootState } from '../../store'
+import { getProducts } from '../../store/products/thunk'
 
+interface product {
+  name: string
+  category: string
+  image: string
+}
+interface Response {
+  data: product[] | null
+  error: any
+}
 export const Home: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
 
@@ -18,6 +28,17 @@ export const Home: React.FC = () => {
       void dispatch(getSession(session))
     })
   }, [])
+  const getData = async (): Promise<product[] | null> => {
+    const { data, error }: Response = await supabase
+      .from('product')
+      .select()
+    console.log(error)
+
+    return data
+  }
+  useEffect(() => {
+    void getData().then(async data => { await dispatch(getProducts(data)) })
+  }, [])
 
   return (
     <>
@@ -27,6 +48,7 @@ export const Home: React.FC = () => {
     <MenuLeft/>
     <Header/>
 
+    <button onClick={getData}>click</button>
     </section>
     </>
   )
