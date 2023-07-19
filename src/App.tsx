@@ -6,7 +6,7 @@ import { Home } from './pages/Home'
 import { Register } from './pages/Register'
 import { AboutUs } from './pages/Home/components/AboutUs'
 
-function App () {
+function App (): JSX.Element {
   return (
     <Routes>
       <Route path="/" element={<Home/>}/>
