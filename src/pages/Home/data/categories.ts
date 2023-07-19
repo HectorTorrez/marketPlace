@@ -13,20 +13,26 @@ export const categories = [
   // },
   {
     name: 'Categories',
-    category: [{
-      label: 'Men',
-      status: false
+    category: [
 
-    }, {
-      label: 'Women',
-      status: false
+      {
+        label: 'Men',
+        status: false
 
-    }]
+      }, {
+        label: 'Women',
+        status: false
+
+      }]
 
   }
 ]
 
 export const itemCategories = [
+  {
+    id: crypto.randomUUID(),
+    category: 'Choose One'
+  },
   {
     id: crypto.randomUUID(),
     category: 'Men'
