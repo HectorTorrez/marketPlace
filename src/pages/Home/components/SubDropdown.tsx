@@ -3,7 +3,7 @@ interface Props {
   status: boolean
 }
 
-export const SubDropdown: React.FC = ({ label, status }: Props) => {
+export const SubDropdown: React.FC<Props> = ({ label, status }: Props) => {
   return (
     <section className="flex gap-5 text-sm font-normal">
         <input type="checkbox" name="status" id="" checked={status}/>
