@@ -1,4 +1,4 @@
-export const ResetPassword = () => {
+export const ResetPassword = (): JSX.Element => {
   return (
     <section className="h-screen  flex items-center justify-center">
     <form

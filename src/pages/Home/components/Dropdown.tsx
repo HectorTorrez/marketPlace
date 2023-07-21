@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { SubDropdown } from './subDropdown'
 import { BsArrowDownShort } from 'react-icons/bs'
+import { SubDropdown } from './SubDropdown'
 
 interface Prop {
   label: string
@@ -12,9 +12,8 @@ interface subCategory {
   category: Prop[]
 }
 
-type Categories = subCategory[]
-
-export const Dropdown: React.FC = ({ categorie }: Categories) => {
+export const Dropdown = ({ categorie }): JSX.Element => {
+  console.log(categorie)
   const { name } = categorie
   const [isOpen, setIsOpen] = useState(false)
 
@@ -29,7 +28,7 @@ export const Dropdown: React.FC = ({ categorie }: Categories) => {
                 <>
                 {
 
-                   categorie.category.map((data, i) => {
+                   categorie.category.map((data: Prop, i: number) => {
                      return <SubDropdown key={i} label={data.label} status={data.status} />
                    })
 
