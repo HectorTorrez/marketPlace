@@ -44,11 +44,10 @@ export const Home: React.FC = () => {
     <>
     {/* <MobileNavbar/> */}
     <DesktopNavbar/>
-    <section className='flex'>
+    <section className='flex flex-col md:flex-row'>
     <MenuLeft/>
     <Header/>
 
-    <button onClick={getData}>click</button>
     </section>
     </>
   )

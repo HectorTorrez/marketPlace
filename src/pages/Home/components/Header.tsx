@@ -4,10 +4,10 @@ import { NewItem } from './NewItem'
 export const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false)
   return (
-    <header className="w-full mx-5">
-        <section className="flex justify-between mt-12 ">
+    <header className="w-4/5  items-center m-auto md:mx-5 md:w-screen">
+        <section className="flex justify-between mt-5 md:mt-12 ">
         <h2 className="font-bold text-3xl">Item</h2>
-        <button onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-4 py-0 rounded-md text-sm">Create a new Item</button>
+        <button onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-2  rounded-md text-sm">Create a new Item</button>
         </section>
         <form className="flex gap-5 mt-5">
             <select className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" id="">

@@ -7,14 +7,14 @@ import { type RootState } from '../../../store'
 interface productProps {
   name: string
   category: string
-  image: File | null
+  image: File | null | string
 }
 
 export const NewItem: React.FC = () => {
   const [product, setProduct] = useState<productProps>({
     name: '',
     category: '',
-    image: null
+    image: ''
   })
 
   const [isLoading, setIsLoading] = useState(false)
@@ -51,7 +51,7 @@ export const NewItem: React.FC = () => {
       setIsLoading(true)
       const { data: storageData, error: storageError } = await supabase.storage
         .from('images')
-        .upload(userId ?? '/' + crypto.randomUUID(), product.image)
+        .upload(userId + '/' + crypto.randomUUID(), product.image)
 
       if (storageError != null) {
         console.error('Error uploading image:', storageError.message)
