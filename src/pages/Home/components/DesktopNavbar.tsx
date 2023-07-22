@@ -1,7 +1,6 @@
 import { HiOutlineMail } from 'react-icons/hi'
 import { BiWallet, BiNotification } from 'react-icons/bi'
 import { CiSearch } from 'react-icons/ci'
-import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../../store'
 import { useState } from 'react'
@@ -10,9 +9,12 @@ import { logOut } from '../../../store/auth/thunk'
 import { type ThunkDispatch } from 'redux-thunk'
 import { type Action } from '@reduxjs/toolkit'
 import { Profile } from './Profile'
+import { MobileNavbar } from '.'
+import { NavLinks } from './NavLinks'
 
 export const DesktopNavbar: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
+  const [navbar, setNavbar] = useState(false)
 
   const { login, email } = useSelector((state: RootState) => state.auth)
 
@@ -24,18 +26,38 @@ export const DesktopNavbar: React.FC = () => {
     void dispatch(logOut())
   }
 
+  const handleShowNav = (): void => {
+    setNavbar(!navbar)
+  }
+
   const handleClip = (): void => {
     setIsHovered(!isHovered)
   }
+  console.log(navbar)
 
   return (
-    <header className='flex flex-col  w-screen items-center  pt-4  shadow-md  md:flex-row md:justify-between md:px-2  '>
-        <section className='hidden gap-5 h-14 w-2/4 items-center  list-none cursor-pointer font-bold md:flex'>
-            <NavLink to={'/'} className={({ isActive }) => isActive ? 'pb-4 border-b-2  border-b-buttons' : 'pb-4 hover:border-b-2'}>Dashboard</NavLink>
-            <NavLink to={'/faq'} className={({ isActive }) => isActive ? 'pb-4 border-b-2  border-b-buttons' : 'pb-4 hover:border-b-2'}>FAQ</NavLink>
-            <NavLink to={'/about-us'} className={({ isActive }) => isActive ? 'pb-4 border-b-2  border-b-buttons' : 'pb-4 hover:border-b-2'}>About Us</NavLink>
-        </section>
+    <header className='flex flex-col  w-full items-center  md:pt-4  shadow-md  md:flex-row md:justify-between md:px-2  '>
+      <button onClick={handleShowNav} className='my-4 self-end mr-6'>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+      </svg>
+      </button>
+    {
+      navbar && (
+        <MobileNavbar>
+        <button onClick={handleShowNav} className='my-4 self-end '>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
 
+        </button>
+        <Profile login={login} isHovered={isHovered} handleClip={handleClip} email={email} handleLogout={handleLogout}/>
+        <NavLinks mobile='flex flex-col' desktop=''/>
+      </MobileNavbar>
+      )
+    }
+
+           <NavLinks mobile='hidden' desktop='md:flex'/>
         <section className='flex flex-col w-screen items-center align-middle m-auto  cursor-pointer pb-4 gap-5  md:flex-row md:justify-center'>
             <section className='flex items-center gap-2 bg-inputs w-72 md:w-1/3 p-2 rounded-xl'>
                 <CiSearch/>
