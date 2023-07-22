@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface AuthState {
   email: string | null
-  userId: string | null
+  userId: string
   login: boolean
 }
 
@@ -15,6 +15,7 @@ export const authSlice = createSlice({
   },
   reducers: {
     addUser: (state, action) => {
+      console.log(state)
       const { email, id } = action.payload
       state.email = email
       state.userId = id
@@ -23,6 +24,7 @@ export const authSlice = createSlice({
 
     onSession: (state, action) => {
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      console.log(action)
       if (action.payload === null) {
         state.login = false
       } else {

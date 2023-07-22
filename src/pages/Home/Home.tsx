@@ -28,6 +28,7 @@ export const Home: React.FC = () => {
       void dispatch(getSession(session))
     })
   }, [])
+
   const getData = async (): Promise<product[] | null> => {
     const { data, error }: Response = await supabase
       .from('product')
@@ -47,8 +48,8 @@ export const Home: React.FC = () => {
     <section className='flex flex-col md:flex-row'>
     <MenuLeft/>
     <Header/>
-
     </section>
+
     </>
   )
 }
