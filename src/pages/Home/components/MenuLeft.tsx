@@ -3,7 +3,7 @@ import { categories } from '../data/categories'
 
 export const MenuLeft: React.FC = () => {
   return (
-    <aside className='mx-8 md:px-5 pt-10 flex flex-col w-52 gap-1  '>
+    <aside className='sm:mx-16 mx-8 md:mx-5 pt-10 flex flex-col items-start w-32 gap-2  '>
         {
             categories.map((categorie, i) => {
               return <Dropdown key={i} categorie={categorie} />

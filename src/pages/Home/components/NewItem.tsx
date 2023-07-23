@@ -16,6 +16,7 @@ export const NewItem: React.FC = () => {
     category: '',
     image: ''
   })
+  const [newError, setNewError] = useState<null | string | boolean>(null)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -47,6 +48,7 @@ export const NewItem: React.FC = () => {
     //   .insert({ name: product.name, category: product.category, image: product.image, user: userId })
 
     // console.log(error)
+    // if (product.name === '' || product.category === '') return
     try {
       setIsLoading(true)
       if (userId === null) return
@@ -55,7 +57,7 @@ export const NewItem: React.FC = () => {
         .upload(userId + '/' + crypto.randomUUID(), product.image)
 
       if (storageError != null) {
-        console.error('Error uploading image:', storageError.message)
+        setNewError(storageError.message)
         return
       }
 
@@ -71,23 +73,26 @@ export const NewItem: React.FC = () => {
       setProduct({
         ...product,
         name: '',
-        category: 'Choose One'
+        category: '',
+        image: null
       })
       setIsLoading(false)
     } catch (error) {
-      console.log(error)
+      setNewError(error.message)
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col w-4/5 left-0 right-0  top-72  absolute md:h-fit md:left-0 md:right-0 md:top-0 md:bottom-0  max-w-md py-10 md:py-20 m-auto items-center gap-10 shadow-2xl z-0 bg-white rounded-lg'>
+      <h1>{newError}</h1>
         <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
             Name
-            <input onChange={handleChange} value={product.name} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="text" name="name" id="name" placeholder="Name" />
+            <input required onChange={handleChange} value={product.name} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="text" name="name" id="name" placeholder="Name" />
         </label>
         <label className='flex flex-col w-full items-center gap-2 font-bold text-xl' htmlFor="category">
                 Category
-            <select onChange={handleChange} value={product.category} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' name="category" id="category">
+            <select required onChange={handleChange} value={product.category} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' name="category" id="category">
+            <option value=''>Choose One</option>
                 {
                     itemCategories.map(categori => {
                       return (
@@ -102,10 +107,22 @@ export const NewItem: React.FC = () => {
 
           Upload Image
 
-            <input onChange={handleFile} className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
+            <input required value={product.image} onChange={handleFile} className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
         </label>
 
-        <button className='bg-green text-white px-10 py-2 md:px-4 md:py-2 rounded-md text-sm md:w-1/3' type='submit'> {
+        {
+          isLoading
+            ? (
+              <div className="flex">
+                <div className="w-4 h-4 border-2 border-t-2 border-blue-500 rounded-full animate-spin"></div>
+              </div>
+              )
+            : (
+           <></>
+              )
+        }
+
+        <button className='bg-buttons text-white px-10 py-2 md:px-4 md:py-2 rounded-md text-sm md:w-1/3' type='submit' disabled={isLoading}>  {
             isLoading ? 'Send' : 'Add Item'
           }</button>
     </form>

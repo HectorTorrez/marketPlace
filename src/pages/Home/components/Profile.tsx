@@ -33,7 +33,7 @@ export const Profile = ({ login, isHovered, handleClip, email, handleLogout }: p
     {
               (login)
                 ? (
-                <section onClick={handleClip} className='flex gap-2 items-center relative hover:shadow-lg'>
+                <section onClick={handleClip} className='flex gap-2 items-center relative '>
                 <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
 
                   <p className='text-sm font-bold'>{email}</p>

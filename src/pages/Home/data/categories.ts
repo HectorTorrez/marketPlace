@@ -29,10 +29,10 @@ export const categories = [
 ]
 
 export const itemCategories = [
-  {
-    id: crypto.randomUUID(),
-    category: 'Choose One'
-  },
+  // {
+  //   id: crypto.randomUUID(),
+  //   category: 'Choose One'
+  // },
   {
     id: crypto.randomUUID(),
     category: 'Men'

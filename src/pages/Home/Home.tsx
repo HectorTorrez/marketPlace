@@ -45,7 +45,7 @@ export const Home: React.FC = () => {
     <>
     {/* <MobileNavbar/> */}
     <DesktopNavbar/>
-    <section className='flex flex-col md:flex-row'>
+    <section className='flex flex-col md:flex-row  md:max-w-6xl md:m-auto '>
     <MenuLeft/>
     <Header/>
     </section>
