@@ -1,5 +1,6 @@
 import ReactNiceAvatar, { genConfig, type AvatarFullConfig } from 'react-nice-avatar'
 import { Link } from 'react-router-dom'
+import { Chevrondown } from '../../../components/icons'
 
 interface profileProps {
   login: boolean
@@ -37,6 +38,7 @@ export const Profile = ({ login, isHovered, handleClip, email, handleLogout }: p
                 <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
 
                   <p className='text-sm font-bold'>{email}</p>
+                  <Chevrondown/>
                     {
                       isHovered && (
                         <div className='absolute -bottom-10 right-0 shadow-lg rounded-md w-full text-center h-full bg-white'>
@@ -54,9 +56,9 @@ export const Profile = ({ login, isHovered, handleClip, email, handleLogout }: p
                 </section>
                   )
                 : (
-                <section className='flex gap-2 items-center'>
+                <section className='flex gap-2 items-center justify-center '>
 
-                  <Link to={'/login'} className='text-sm font-bold'>Login</Link>
+                  <Link to={'/login'} className='text-base md:text-xl font-bold'>Login</Link>
 
                 </section>
                   )

@@ -1,6 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { supabase } from '../../supabase/client'
+import { Email, Password } from '../../components/icons'
+import { Error } from '../../components/Error'
 
 interface RegisterProps {
   email: string
@@ -12,6 +14,10 @@ export const Register: React.FC = () => {
     email: '',
     password: ''
   })
+
+  const [newError, setNewError] = useState('')
+
+  const navigate = useNavigate()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target
@@ -25,22 +31,22 @@ export const Register: React.FC = () => {
     event.preventDefault()
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: register.email,
         password: register.password
       })
-      console.log(data)
-      console.log(error)
+      if (error != null) {
+        setNewError(error?.message); return
+      }
       setRegister({
         email: '',
         password: ''
       })
-    } catch (error) {
-      console.log(error)
+      navigate('/login')
+    } catch (error: any) {
+      setNewError(error.message)
     }
   }
-
-  console.log(register)
 
   return (
     <section className="h-screen  flex items-center justify-center">
@@ -49,6 +55,11 @@ export const Register: React.FC = () => {
       onSubmit={handleSubmit}
       className="flex flex-col text-center lg:w-1/2 w-auto  justify-center items-center align-middle  bg-indigo-50 py-10 lg:py-32 max-w-3xl rounded-md "
     >
+       {
+        (newError.length > 0) && (
+          <Error text = {newError}/>
+        )
+      }
       <section className="pb-10 px-10">
         <h2 className="font-bold text-3xl lg:text-7xl mb-4">Register</h2>
         <p className="text-xl text-slate-400">
@@ -62,7 +73,7 @@ export const Register: React.FC = () => {
           htmlFor="email"
           className=" bg-white rounded-md flex items-center justify-center pl-2"
         >
-          {/* <FontAwesomeIcon icon={faEnvelope} /> */}
+          <Email/>
           <input
             onChange={handleChange}
             className="p-2  w-full outline-none border-none lg:text-xl"
@@ -70,6 +81,7 @@ export const Register: React.FC = () => {
             placeholder="Enter your email"
             name="email"
             value={register.email}
+            required
 
           />
         </label>
@@ -77,7 +89,7 @@ export const Register: React.FC = () => {
           htmlFor="password"
           className="bg-white rounded-md flex items-center justify-center pl-2"
         >
-          {/* <FontAwesomeIcon icon={faLock} /> */}
+          <Password/>
           <input
             onChange={handleChange}
             className="p-2  w-full outline-none border-none lg:text-xl "
@@ -86,10 +98,11 @@ export const Register: React.FC = () => {
             name="password"
             value={register.password}
             autoComplete="current-password"
+            required
           />
         </label>
 
-        <button className="bg-buttons hover:opacity-70 text-xl py-2 rounded-md ">
+        <button className="bg-buttons text-white hover:opacity-70 text-xl py-2 rounded-md ">
           Register
         </button>
       </section>

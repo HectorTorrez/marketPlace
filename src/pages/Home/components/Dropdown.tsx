@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { BsArrowDownShort } from 'react-icons/bs'
 import { SubDropdown } from './SubDropdown'
+import { Arrow } from '../../../components/icons'
 
 interface Prop {
   label: string
@@ -21,7 +21,7 @@ export const Dropdown = ({ categorie }): JSX.Element => {
     <section className='flex flex-col items-start border-b-inputs border-b-2 font-bold'>
         <button className='flex justify-between w-full items-center py-2' onClick={() => { setIsOpen(!isOpen) }}>
             {name}
-            <BsArrowDownShort/>
+          <Arrow/>
         </button>
         {
             isOpen && (

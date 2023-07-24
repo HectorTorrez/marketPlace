@@ -1,6 +1,4 @@
-import { HiOutlineMail } from 'react-icons/hi'
-import { BiWallet, BiNotification } from 'react-icons/bi'
-import { CiSearch } from 'react-icons/ci'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../../store'
 import { useState } from 'react'
@@ -11,6 +9,7 @@ import { type Action } from '@reduxjs/toolkit'
 import { Profile } from './Profile'
 import { MobileNavbar } from '.'
 import { NavLinks } from './NavLinks'
+import { Letter, Store } from '../../../components/icons'
 
 export const DesktopNavbar: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -60,15 +59,14 @@ export const DesktopNavbar: React.FC = () => {
            <NavLinks mobile='hidden' desktop='md:flex justify-start'/>
         <section className='flex flex-col w-screen items-center align-middle m-auto  cursor-pointer pb-4 gap-5  md:flex-row md:justify-end'>
             <section className='flex items-center gap-2 bg-inputs w-72 md:w-1/3 p-2 rounded-xl'>
-                <CiSearch/>
+
             <input className='bg-inputs outline-none border-none w-full' type="text" name="search" id="search" placeholder="Search" />
             </section>
           <section className=' flex list-none gap-3 items-center '>
-              <li className='p-2 rounded-full bg-inputs'><HiOutlineMail/></li>
-              <li className='p-2 rounded-full bg-inputs'><BiNotification/></li>
-              <li className='p-2 rounded-full bg-inputs'><BiWallet/></li>
+              <li className='p-2 rounded-full bg-inputs'><Letter/></li>
+              <li className='p-2 rounded-full bg-inputs'><Store/></li>
           </section>
-            <section className='hidden md:block'>
+            <section className='hidden md:flex'>
             <Profile login={login} isHovered={isHovered} handleClip={handleClip} email={email} handleLogout={handleLogout}/>
             </section>
           </section>
