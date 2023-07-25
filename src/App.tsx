@@ -14,7 +14,6 @@ function App (): JSX.Element {
       <Route path="/register" element={<Register/>}/>
       <Route path="/about-us" element={<AboutUs/>}/>
       <Route path="/faq" element={<AboutUs/>}/>
-
     </Routes>
   )
 }

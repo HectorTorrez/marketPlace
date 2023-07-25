@@ -13,7 +13,6 @@ interface subCategory {
 }
 
 export const Dropdown = ({ categorie }): JSX.Element => {
-  console.log(categorie)
   const { name } = categorie
   const [isOpen, setIsOpen] = useState(false)
 
