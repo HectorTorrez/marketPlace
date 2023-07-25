@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { itemCategories } from '../data/categories'
 import { supabase } from '../../../supabase/client'
 import { useSelector } from 'react-redux'
 import { type RootState } from '../../../store'
+import { Error } from '../../../components/Error'
+import { Success } from '../../../components/Success'
 
 interface productProps {
   name: string
@@ -16,9 +18,10 @@ export const NewItem: React.FC = () => {
     category: '',
     image: ''
   })
-  const [newError, setNewError] = useState<null | string | boolean>(null)
+  const [newError, setNewError] = useState('')
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isSend, setIsSend] = useState(false)
 
   const { userId } = useSelector((state: RootState) => state.auth)
 
@@ -43,22 +46,19 @@ export const NewItem: React.FC = () => {
 
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    // const { error } = await supabase
-    //   .from('product')
-    //   .insert({ name: product.name, category: product.category, image: product.image, user: userId })
-
-    // console.log(error)
-    // if (product.name === '' || product.category === '') return
     try {
       setIsLoading(true)
-      if (userId === null) return
+      if (userId === null) {
+        setNewError('Please login')
+        setIsLoading(false)
+        return
+      }
       const { data: storageData, error: storageError } = await supabase.storage
         .from('images')
         .upload(userId + '/' + crypto.randomUUID(), product.image)
 
       if (storageError != null) {
-        setNewError(storageError.message)
-        return
+        setNewError(storageError.message); return
       }
 
       const imageUrl = storageData.path
@@ -67,9 +67,10 @@ export const NewItem: React.FC = () => {
       ])
 
       if (error != null) {
-        console.error('Error inserting data:', error.message)
+        setNewError(error.message)
         return
       }
+      console.log('hola')
       setProduct({
         ...product,
         name: '',
@@ -77,14 +78,31 @@ export const NewItem: React.FC = () => {
         image: null
       })
       setIsLoading(false)
-    } catch (error) {
-      setNewError(error.message)
+      setIsSend(true)
+    } catch (error: any) {
+      setNewError(error)
     }
   }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSend(false)
+    }, 2000)
+
+    return () => { clearTimeout(timer) }
+  }, [isSend])
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col w-4/5 left-0 right-0  top-72  absolute md:h-fit md:left-0 md:right-0 md:top-0 md:bottom-0  max-w-md py-10 md:py-20 m-auto items-center gap-10 shadow-2xl z-0 bg-white rounded-lg'>
-      <h1>{newError}</h1>
+    <form onSubmit={handleSubmit} className='flex flex-col w-4/5 left-0 right-0  top-40  absolute md:h-fit md:left-0 md:right-0 md:top-0 md:bottom-0  max-w-md py-10 md:py-20 m-auto items-center gap-10 shadow-2xl z-0 bg-white rounded-lg'>
+      {
+        (newError.length > 0) && (
+          <Error text={newError}/>
+        )
+      }
+      {
+        isSend && (
+          <Success text={'Uploaded Correctly'}/>
+        )
+      }
         <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
             Name
             <input required onChange={handleChange} value={product.name} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="text" name="name" id="name" placeholder="Name" />
@@ -107,7 +125,7 @@ export const NewItem: React.FC = () => {
 
           Upload Image
 
-            <input required value={product.image} onChange={handleFile} className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
+            <input required onChange={handleFile} className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
         </label>
 
         {

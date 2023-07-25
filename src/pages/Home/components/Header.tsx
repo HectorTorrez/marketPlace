@@ -1,10 +1,21 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NewItem } from './NewItem'
+import { useClickedOutside } from '../../../hooks/useClose'
 
 export const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false)
+  const [clickedOutside, componentRef] = useClickedOutside({
+    dependencies: [isActive]
+  })
+
+  useEffect(() => {
+    if (isActive && clickedOutside) {
+      setIsActive(!isActive)
+    }
+  }, [clickedOutside])
+
   return (
-    <header className="w-4/5 md:mx-2  items-center m-auto  md:w-screen">
+    <header ref={componentRef} className="w-4/5 md:mx-2  items-center m-auto  md:w-screen">
         <section className="flex justify-between mt-5 md:mt-12 ">
         <h2 className="font-bold text-3xl">Item</h2>
         <button onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-2  rounded-md text-sm">Create a new Item</button>
