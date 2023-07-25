@@ -1,17 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface product {
+  id: null
+  created_at: string
   name: string
   category: string
   image: string
+  user: string
 }
 
 const initialState: product[] = [
-  {
-    name: '',
-    category: '',
-    image: ''
-  }
+
 ]
 
 export const productSlice = createSlice({
@@ -19,7 +18,7 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     getProduct: (state, action) => {
-      console.log(action)
+      action.payload.forEach((m: product) => { state.push(m) })
     }
   }
 })

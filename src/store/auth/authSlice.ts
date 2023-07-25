@@ -23,8 +23,6 @@ export const authSlice = createSlice({
     },
 
     onSession: (state, action) => {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      console.log(action)
       if (action.payload === null) {
         state.login = false
       } else {
