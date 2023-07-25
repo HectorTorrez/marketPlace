@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { DesktopNavbar, Header, MenuLeft } from './components'
 import { useEffect } from 'react'
 import { supabase } from '../../supabase/client'
@@ -7,6 +7,7 @@ import { type Session } from '@supabase/supabase-js'
 import { type ThunkDispatch, type Action } from '@reduxjs/toolkit'
 import { type RootState } from '../../store'
 import { getProducts } from '../../store/products/thunk'
+import { Product } from './components/Product'
 
 interface product {
   name: string
@@ -19,6 +20,8 @@ interface Response {
 }
 export const Home: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
+  const data = useSelector((state: RootState) => state.product)
+  console.log(data)
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data: { session } }) => {
@@ -33,7 +36,9 @@ export const Home: React.FC = () => {
     const { data, error }: Response = await supabase
       .from('product')
       .select()
-    console.log(error)
+    if (error != null) {
+      console.error(error)
+    }
 
     return data
   }
@@ -49,7 +54,12 @@ export const Home: React.FC = () => {
     <MenuLeft/>
     <Header/>
     </section>
+      <section>
 
+        {data.map(d => {
+          return (<Product key={d.id} {...d} />)
+        })}
+      </section>
     </>
   )
 }
