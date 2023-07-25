@@ -12,7 +12,6 @@ export default {
       inputs: '#f3f2f3',
       buttons: '#22b9ca',
       white: '#fff',
-      green: '#39f2ae',
      
     }
   },
