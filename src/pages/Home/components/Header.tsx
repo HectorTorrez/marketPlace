@@ -30,6 +30,12 @@ export const Header: React.FC = () => {
   const stateData = useSelector((state: RootState) => state.product)
 
   useEffect(() => {
+    const handleEsc = (event: KeyboardEvent): void => {
+      if (event.key === 'Escape') {
+        setIsActive(false)
+      }
+    }
+    window.addEventListener('keydown', handleEsc)
     if (isActive && clickedOutside) {
       setIsActive(!isActive)
     }
@@ -75,7 +81,7 @@ export const Header: React.FC = () => {
           isActive && <NewItem/>
         }
 
-      <section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto'>
+      <section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto mb-10'>
 
         {stateData.map(d => {
           return (<Product key={d.id} {...d} />)
