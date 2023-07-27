@@ -11,8 +11,8 @@ export const Product = ({ name, category, image, price }: ProductProps): JSX.Ele
   const format = price.toLocaleString()
   return (
     <section className="max-w-[258px] h-[331px] max-h-[331px] flex flex-col items-center m-auto mt-10 shadow-lg rounded-lg ">
-        <div className="w-full  ">
-            <img className="max-h-[170px] rounded-t-lg w-[258px] bg-cover m-auto" src={CNDURL + image} alt="#" />
+        <div className="w-full h-full ">
+            <img className="max-h-[200px] rounded-t-lg w-[258px] h-[200px] bg-cover m-auto" src={CNDURL + image} alt="#" />
         </div>
         <section className="w-full h-full flex flex-col justify-between">
             <section className="flex flex-col align-middle  self-start pt-3 px-3  border-b w-full h-full">

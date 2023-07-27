@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { getUser } from '../../store/auth/thunk'
 import { type RootState } from '../../store/store'
 import { type ThunkDispatch, type Action } from '@reduxjs/toolkit'
-import { Email, Password } from '../../components/icons'
+import { Email, Password } from '../../components/Icons'
 import { Error } from '../../components/Error'
 
 export const Login: React.FC = () => {
@@ -38,7 +38,9 @@ export const Login: React.FC = () => {
       if (error != null) {
         setNewError(error?.message); return
       }
-      void dispatch(getUser(data.user?.email, data.user?.id))
+      const { email, id } = data.user
+      console.log(email, id)
+      void dispatch(getUser(email, id))
       navigate('/')
     } catch (error: any) {
       setNewError(error.message)
