@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { NewItem } from './NewItem'
 import { useClickedOutside } from '../../../hooks/useClose'
 import { useDispatch, useSelector } from 'react-redux'
@@ -75,12 +75,12 @@ export const Header: React.FC = () => {
           isActive && <NewItem/>
         }
 
-<section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto'>
+      <section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto'>
 
-{stateData.map(d => {
-  return (<Product key={d.id} {...d} />)
-})}
-</section>
+        {stateData.map(d => {
+          return (<Product key={d.id} {...d} />)
+        })}
+      </section>
 
     </header>
   )
