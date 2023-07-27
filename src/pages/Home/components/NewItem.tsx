@@ -25,7 +25,7 @@ export const NewItem: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSend, setIsSend] = useState(false)
 
-  const { userId }: string = useSelector((state: RootState) => state.auth)
+  const { userId } = useSelector((state: RootState) => state.auth)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = event.target
@@ -53,9 +53,10 @@ export const NewItem: React.FC = () => {
         setIsLoading(false)
         return
       }
+      const newId = crypto.randomUUID()
       const { data: storageData, error: storageError } = await supabase.storage
         .from('images')
-        .upload(userId + '/' + crypto.randomUUID(), product.image)
+        .upload(userId + '/' + newId, product.image)
 
       if (storageError != null) {
         setNewError(storageError.message); return
