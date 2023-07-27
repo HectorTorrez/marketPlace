@@ -5,13 +5,12 @@ interface product {
   created_at: string
   name: string
   category: string
+  price: number
   image: string
   user: string
 }
 
-const initialState: product[] = [
-
-]
+const initialState: product[] = []
 
 export const productSlice = createSlice({
   name: 'product',

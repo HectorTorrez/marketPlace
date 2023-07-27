@@ -9,6 +9,7 @@ import { Success } from '../../../components/Success'
 interface productProps {
   name: string
   category: string
+  price: number
   image: File | any
 }
 
@@ -16,6 +17,7 @@ export const NewItem: React.FC = () => {
   const [product, setProduct] = useState<productProps>({
     name: '',
     category: '',
+    price: 0,
     image: ''
   })
   const [newError, setNewError] = useState('')
@@ -23,9 +25,7 @@ export const NewItem: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSend, setIsSend] = useState(false)
 
-  const { userId } = useSelector((state: RootState) => state.auth)
-
-  // const CNDURL = 'https://omznsctbhdxpwaoxyyck.supabase.co/storage/v1/object/public/images/'
+  const { userId }: string = useSelector((state: RootState) => state.auth)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = event.target
@@ -63,7 +63,7 @@ export const NewItem: React.FC = () => {
 
       const imageUrl = storageData.path
       const { error } = await supabase.from('product').insert([
-        { name: product.name, category: product.category, image: imageUrl, user: userId }
+        { name: product.name, category: product.category, image: imageUrl, user: userId, price: product.price }
       ])
 
       if (error != null) {
@@ -75,6 +75,7 @@ export const NewItem: React.FC = () => {
         ...product,
         name: '',
         category: '',
+        price: 0,
         image: null
       })
       setIsLoading(false)
@@ -120,12 +121,16 @@ export const NewItem: React.FC = () => {
                 }
             </select>
         </label>
+        <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
+            Price
+            <input required onChange={handleChange} value={product.price} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="number" name="price" id="price" placeholder="Price" />
+        </label>
 
         <label className='flex flex-col w-full items-center gap-2 font-bold text-' htmlFor="image">
 
           Upload Image
 
-            <input required onChange={handleFile} className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
+            <input required onChange={handleFile} accept='png, jpg' className='bg-inputs  md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="file" name="image" id="image" />
         </label>
 
         {
