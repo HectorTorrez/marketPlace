@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export interface AuthState {
   email: string | null
-  userId: string | null
+  userId: string
   login: boolean
 }
 
@@ -10,7 +10,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     email: null,
-    userId: null,
+    userId: '',
     login: false
   },
   reducers: {
@@ -33,7 +33,7 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.email = null
-      state.userId = null
+      state.userId = ''
       state.login = false
     }
   }

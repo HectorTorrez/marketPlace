@@ -53,7 +53,7 @@ export const NewItem: React.FC = () => {
         setIsLoading(false)
         return
       }
-      const newId = crypto.randomUUID()
+      const newId: string = crypto.randomUUID()
       const { data: storageData, error: storageError } = await supabase.storage
         .from('images')
         .upload(userId + '/' + newId, product.image)
@@ -71,7 +71,6 @@ export const NewItem: React.FC = () => {
         setNewError(error.message)
         return
       }
-      console.log('hola')
       setProduct({
         ...product,
         name: '',
