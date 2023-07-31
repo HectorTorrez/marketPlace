@@ -1,7 +1,7 @@
 
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState } from '../../../store'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { supabase } from '../../../supabase/client'
 import { logOut } from '../../../store/auth/thunk'
 import { type ThunkDispatch } from 'redux-thunk'
@@ -9,11 +9,13 @@ import { type Action } from '@reduxjs/toolkit'
 import { Profile } from './Profile'
 import { MobileNavbar } from '.'
 import { NavLinks } from './NavLinks'
-import { Letter, Store } from '../../../components/icons'
+import { Letter, Store } from '../../../components/Icons'
+import { filterProduct } from '../../../store/products/productSlice'
 
 export const DesktopNavbar: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
   const [navbar, setNavbar] = useState(false)
+  const [search, setSearch] = useState('')
 
   const { login, email } = useSelector((state: RootState) => state.auth)
 
@@ -32,7 +34,9 @@ export const DesktopNavbar: React.FC = () => {
   const handleClip = (): void => {
     setIsHovered(!isHovered)
   }
-
+  useEffect(() => {
+    void dispatch(filterProduct(search))
+  }, [search])
   return (
     <header className='flex flex-col  w-full  items-center  md:pt-4  shadow-md  md:flex-row md:justify-between md:px-2  '>
       <section className='md:max-w-6xl m-auto w-full'>
@@ -62,7 +66,7 @@ export const DesktopNavbar: React.FC = () => {
         <section className='flex flex-col w-screen items-center align-middle m-auto  cursor-pointer pb-4 gap-5  md:flex-row md:justify-end'>
             <section className='flex items-center gap-2 bg-inputs w-72 md:w-1/3 p-2 rounded-xl'>
 
-            <input className='bg-inputs outline-none border-none w-full' type="text" name="search" id="search" placeholder="Search" />
+            <input onChange={(e) => { setSearch(e.target.value) }} className='bg-inputs outline-none border-none w-full' type="text" name="search" id="search" placeholder="Search" />
             </section>
           <section className=' flex list-none gap-3 items-center '>
               <li className='p-2 rounded-full bg-inputs'><Letter/></li>

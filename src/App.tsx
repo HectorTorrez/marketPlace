@@ -5,6 +5,7 @@ import { Login } from './pages/Login'
 import { Home } from './pages/Home'
 import { Register } from './pages/Register'
 import { AboutUs } from './pages/Home/components/AboutUs'
+import { NotFound } from './pages/NotFound/NotFound'
 
 function App (): JSX.Element {
   return (
@@ -14,6 +15,7 @@ function App (): JSX.Element {
       <Route path="/register" element={<Register/>}/>
       <Route path="/about-us" element={<AboutUs/>}/>
       <Route path="/faq" element={<AboutUs/>}/>
+      <Route path= "/*" element={<NotFound/>}/>
     </Routes>
   )
 }

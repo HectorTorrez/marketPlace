@@ -28,7 +28,8 @@ export const Header: React.FC = () => {
 
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
   const stateData = useSelector((state: RootState) => state.product)
-
+  // const stateFilter = useSelector((state: RootState) => state.product.filterProduct)
+  console.log(stateData)
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {

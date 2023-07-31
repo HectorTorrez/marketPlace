@@ -1,6 +1,6 @@
 import ReactNiceAvatar, { genConfig, type AvatarFullConfig } from 'react-nice-avatar'
 import { Link } from 'react-router-dom'
-import { Chevrondown } from '../../../components/icons'
+import { Chevrondown } from '../../../components/Icons'
 
 interface profileProps {
   login: boolean

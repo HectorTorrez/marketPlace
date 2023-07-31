@@ -25,8 +25,15 @@ export const productSlice = createSlice({
           state.push(m)
         }
       })
+    },
+
+    filterProduct: (state, action) => {
+      const filterByName = action.payload.toLowerCase()
+      console.log(filterByName)
+      // const forName = state.filter((n) => n.name.toLocaleLowerCase() === filterByName)
     }
+
   }
 })
 
-export const { getProduct } = productSlice.actions
+export const { getProduct, filterProduct } = productSlice.actions
