@@ -22,14 +22,17 @@ interface Response {
 
 export const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false)
+
   const [clickedOutside, componentRef] = useClickedOutside({
     dependencies: [isActive]
   })
 
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
-  const stateData = useSelector((state: RootState) => state.product)
-  // const stateFilter = useSelector((state: RootState) => state.product.filterProduct)
-  console.log(stateData)
+  const stateData = useSelector((state: RootState) => state.product.products)
+  const search = useSelector((state: RootState) => state.product.searchTerm)
+
+  console.log({ stateData })
+
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
@@ -59,6 +62,8 @@ export const Header: React.FC = () => {
     })
   }, [])
 
+  const data = stateData.filter(item => item.name.toLowerCase().includes(search))
+
   return (
     <header ref={componentRef} className="w-4/5 md:mx-2  items-center m-auto   md:w-screen ">
         <section className="flex justify-between mt-5 md:mt-12 ">
@@ -84,7 +89,7 @@ export const Header: React.FC = () => {
 
       <section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto mb-10'>
 
-        {stateData.map(d => {
+        {data.map(d => {
           return (<Product key={d.id} {...d} />)
         })}
       </section>

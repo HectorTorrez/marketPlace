@@ -35,7 +35,7 @@ export const DesktopNavbar: React.FC = () => {
     setIsHovered(!isHovered)
   }
   useEffect(() => {
-    void dispatch(filterProduct(search))
+    void dispatch(filterProduct(search.toLowerCase()))
   }, [search])
   return (
     <header className='flex flex-col  w-full  items-center  md:pt-4  shadow-md  md:flex-row md:justify-between md:px-2  '>

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-interface product {
+export interface product {
   id: null
   created_at: string
   name: string
@@ -14,23 +14,26 @@ const initialState: product[] = []
 
 export const productSlice = createSlice({
   name: 'product',
-  initialState,
+  initialState: {
+    products: initialState,
+    searchTerm: ''
+  },
   reducers: {
     getProduct: (state, action) => {
       action.payload.forEach((m: product) => {
-        const findProduct = state.find((p) => p.id === m.id)
+        const findProduct = state.products.find((p) => p.id === m.id)
         if (findProduct != null) {
           return []
         } else {
-          state.push(m)
+          return {
+            products: state.products.push(m)
+          }
         }
       })
     },
 
     filterProduct: (state, action) => {
-      const filterByName = action.payload.toLowerCase()
-      console.log(filterByName)
-      // const forName = state.filter((n) => n.name.toLocaleLowerCase() === filterByName)
+      state.searchTerm = action.payload
     }
 
   }
