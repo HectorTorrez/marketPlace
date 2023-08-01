@@ -1,25 +1,26 @@
 import { useState } from 'react'
 import { SubDropdown } from './SubDropdown'
-import { Arrow } from '../../../components/icons'
+import { Arrow } from '../../../components/Icons'
 
 interface Prop {
+  id: string
   label: string
-  status: boolean
 }
 
 interface subCategory {
-  name: string
-  category: Prop[]
+  categorie: {
+    name: string
+    category: Prop[]
+  }
 }
 
-export const Dropdown = ({ categorie }): JSX.Element => {
-  const { name } = categorie
+export const Dropdown = ({ categorie }: subCategory): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <section className='flex flex-col items-start border-b-inputs border-b-2 font-bold'>
         <button className='flex justify-between w-full items-center py-2' onClick={() => { setIsOpen(!isOpen) }}>
-            {name}
+            {categorie.name}
           <Arrow/>
         </button>
         {
@@ -27,8 +28,8 @@ export const Dropdown = ({ categorie }): JSX.Element => {
                 <>
                 {
 
-                   categorie.category.map((data: Prop, i: number) => {
-                     return <SubDropdown key={i} label={data.label} status={data.status} />
+                   categorie.category.map((data: Prop) => {
+                     return <SubDropdown key={data.id} label={data.label} />
                    })
 
                 }

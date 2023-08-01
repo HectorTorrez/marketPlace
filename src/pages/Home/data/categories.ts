@@ -1,38 +1,20 @@
 export const categories = [
-  // {
-  //   name: 'Status',
-  //   category: [
-  //     {
-
-  //       label: 'Sold',
-  //       status: false
-  //     }
-
-  //   ]
-
-  // },
   {
     name: 'Categories',
     category: [
-
       {
-        label: 'Men',
-        status: false
+        id: 'Men',
+        label: 'Men'
 
       }, {
-        label: 'Women',
-        status: false
+        id: 'Women',
+        label: 'Women'
 
       }]
-
   }
 ]
 
 export const itemCategories = [
-  // {
-  //   id: crypto.randomUUID(),
-  //   category: 'Choose One'
-  // },
   {
     id: crypto.randomUUID(),
     category: 'Men'
