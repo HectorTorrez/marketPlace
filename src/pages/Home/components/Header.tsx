@@ -22,7 +22,6 @@ interface Response {
 
 export const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false)
-
   const [clickedOutside, componentRef] = useClickedOutside({
     dependencies: [isActive]
   })
@@ -30,8 +29,7 @@ export const Header: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
   const stateData = useSelector((state: RootState) => state.product.products)
   const search = useSelector((state: RootState) => state.product.searchTerm)
-
-  console.log({ stateData })
+  const category = useSelector((state: RootState) => state.product.category)
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent): void => {
@@ -62,7 +60,12 @@ export const Header: React.FC = () => {
     })
   }, [])
 
-  const data = stateData.filter(item => item.name.toLowerCase().includes(search))
+  const data = stateData.filter(item => {
+    const byNames = item.name.toLowerCase().includes(search)
+    const byCategory = item.category.includes(category)
+
+    return byNames && byCategory
+  })
 
   return (
     <header ref={componentRef} className="w-4/5 md:mx-2  items-center m-auto   md:w-screen ">
