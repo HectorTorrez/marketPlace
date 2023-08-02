@@ -106,7 +106,7 @@ export const NewItem: React.FC = () => {
       }
         <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
             Name
-            <input required onChange={handleChange} value={product.name} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="text" name="name" id="name" placeholder="Name" />
+            <input maxLength={25} required onChange={handleChange} value={product.name} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="text" name="name" id="name" placeholder="Name" />
         </label>
         <label className='flex flex-col w-full items-center gap-2 font-bold text-xl' htmlFor="category">
                 Category
@@ -123,7 +123,7 @@ export const NewItem: React.FC = () => {
         </label>
         <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
             Price
-            <input required onChange={handleChange} value={product.price} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' type="number" name="price" id="price" placeholder="Price" />
+            <input type="number" min={1} max={100000000000000} required onChange={handleChange} value={product.price} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' name="price" id="price" placeholder="Price" />
         </label>
 
         <label className='flex flex-col w-full items-center gap-2 font-bold text-' htmlFor="image">

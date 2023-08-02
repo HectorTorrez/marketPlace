@@ -8,7 +8,7 @@ import { supabase } from '../../../supabase/client'
 import { getProducts } from '../../../store/products/thunk'
 import { type ThunkDispatch } from 'redux-thunk'
 import { type Action } from '@reduxjs/toolkit'
-import { filterByDate } from '../../../store/products/productSlice'
+import { filterByDate, filterByPrice } from '../../../store/products/productSlice'
 
 interface product {
   name: string
@@ -36,6 +36,7 @@ export const Header: React.FC = () => {
   const search = useSelector((state: RootState) => state.product.searchTerm)
   const category = useSelector((state: RootState) => state.product.category)
   const stateDate = useSelector((state: RootState) => state.product.date)
+  const statePrice = useSelector((state: RootState) => state.product.price)
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setSelectDate(event?.target.value)
@@ -79,21 +80,27 @@ export const Header: React.FC = () => {
 
   useEffect(() => {
     dispatch(filterByDate(selectDate))
-  }, [selectDate])
-
-  // data.sort((a, b) => {
-  //   if (stateDate === 'Recent') {
-  //     return a.price - b.price
-  //   }
-
-  // })
+    dispatch(filterByPrice(selectPrice))
+  }, [selectDate, selectPrice])
 
   data.sort((a: product, b: product) => {
+    if (statePrice === 'Low to High') {
+      const priceSort = a.price - b.price
+      if (priceSort !== 0) {
+        return priceSort
+      }
+    } else if (statePrice === 'High to Low') {
+      const priceSort = b.price - a.price
+      if (priceSort !== 0) {
+        return priceSort
+      }
+    }
+
     const dateA = new Date(a.created_at)
     const dateB = new Date(b.created_at)
-    if (stateDate === 'Recent') {
+    if (stateDate === 'Old') {
       return dateA.getTime() - dateB.getTime()
-    } else if (stateDate === 'Old') {
+    } else if (stateDate === 'Recent') {
       return dateB.getTime() - dateA.getTime()
     }
 
@@ -108,7 +115,7 @@ export const Header: React.FC = () => {
         </section>
         <form className="flex gap-5 mt-5">
             <select value={selectDate} onChange={handleSelect} className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" title='Date'>
-                {/* <option disabled value="">Date</option> */}
+                <option disabled value="">Date</option>
                 <option value="Recent">Recent</option>
                 <option value="Old">Old</option>
             </select>
