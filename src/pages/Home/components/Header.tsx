@@ -8,12 +8,14 @@ import { supabase } from '../../../supabase/client'
 import { getProducts } from '../../../store/products/thunk'
 import { type ThunkDispatch } from 'redux-thunk'
 import { type Action } from '@reduxjs/toolkit'
+import { filterByDate } from '../../../store/products/productSlice'
 
 interface product {
   name: string
   category: string
   price: number
   image: string
+  created_at: string
 }
 interface Response {
   data: product[] | null
@@ -22,6 +24,9 @@ interface Response {
 
 export const Header: React.FC = () => {
   const [isActive, setIsActive] = useState(false)
+  const [selectDate, setSelectDate] = useState('')
+  const [selectPrice, setSelectPrice] = useState('')
+
   const [clickedOutside, componentRef] = useClickedOutside({
     dependencies: [isActive]
   })
@@ -30,6 +35,11 @@ export const Header: React.FC = () => {
   const stateData = useSelector((state: RootState) => state.product.products)
   const search = useSelector((state: RootState) => state.product.searchTerm)
   const category = useSelector((state: RootState) => state.product.category)
+  const stateDate = useSelector((state: RootState) => state.product.date)
+
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    setSelectDate(event?.target.value)
+  }
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent): void => {
@@ -67,6 +77,29 @@ export const Header: React.FC = () => {
     return byNames && byCategory
   })
 
+  useEffect(() => {
+    dispatch(filterByDate(selectDate))
+  }, [selectDate])
+
+  // data.sort((a, b) => {
+  //   if (stateDate === 'Recent') {
+  //     return a.price - b.price
+  //   }
+
+  // })
+
+  data.sort((a: product, b: product) => {
+    const dateA = new Date(a.created_at)
+    const dateB = new Date(b.created_at)
+    if (stateDate === 'Recent') {
+      return dateA.getTime() - dateB.getTime()
+    } else if (stateDate === 'Old') {
+      return dateB.getTime() - dateA.getTime()
+    }
+
+    return 0
+  })
+
   return (
     <header ref={componentRef} className="w-4/5 md:mx-2  items-center m-auto   md:w-screen ">
         <section className="flex justify-between mt-5 md:mt-12 ">
@@ -74,15 +107,15 @@ export const Header: React.FC = () => {
         <button onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-2  rounded-md text-sm">Create a new Item</button>
         </section>
         <form className="flex gap-5 mt-5">
-            <select className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" id="">
-                <option value="">Date</option>
+            <select value={selectDate} onChange={handleSelect} className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" title='Date'>
+                {/* <option disabled value="">Date</option> */}
                 <option value="Recent">Recent</option>
                 <option value="Old">Old</option>
             </select>
-            <select className="bg-inputs px-2 py-1 rounded-md outline-none" name="price" id="">
+            <select value={selectPrice} onChange={(e) => { setSelectPrice(e.target.value) }}className="bg-inputs px-2 py-1 rounded-md outline-none" name="price" id="">
                 <option value="">Price</option>
-                <option value="">High to Low</option>
-                <option value="">Low to High</option>
+                <option value="High to Low">High to Low</option>
+                <option value="Low to High">Low to High</option>
             </select>
         </form>
 
