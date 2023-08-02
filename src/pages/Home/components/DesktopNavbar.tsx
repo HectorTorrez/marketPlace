@@ -39,8 +39,7 @@ export const DesktopNavbar: React.FC = () => {
   }, [search])
   return (
     <header className='flex flex-col  w-full  items-center  md:pt-4  shadow-md  md:flex-row md:justify-between md:px-2  '>
-      <section className='md:max-w-6xl m-auto w-full'>
-
+      <section className='md:max-w-6xl m-auto w-full flex flex-col'>
        <button onClick={handleShowNav} className='my-4 self-end mr-6 md:hidden'>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />

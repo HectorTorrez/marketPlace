@@ -7,16 +7,6 @@ import { type Session } from '@supabase/supabase-js'
 import { type ThunkDispatch, type Action } from '@reduxjs/toolkit'
 import { type RootState } from '../../store'
 
-// interface product {
-//   name: string
-//   category: string
-//   price: number
-//   image: string
-// }
-// interface Response {
-//   data: product[] | null
-//   error: any
-// }
 export const Home: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
 
