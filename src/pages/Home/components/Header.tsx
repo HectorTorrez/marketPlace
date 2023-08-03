@@ -115,7 +115,7 @@ export const Header: React.FC = () => {
         </section>
         <form className="flex gap-5 mt-5">
             <select value={selectDate} onChange={handleSelect} className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" title='Date'>
-                <option disabled value="">Date</option>
+                <option value="">Date</option>
                 <option value="Recent">Recent</option>
                 <option value="Old">Old</option>
             </select>
