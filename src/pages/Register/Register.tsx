@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { supabase } from '../../supabase/client'
-import { Email, Password } from '../../components/icons'
+import { Email, Password } from '../../components/Icons'
 import { Error } from '../../components/Error'
 
 interface RegisterProps {

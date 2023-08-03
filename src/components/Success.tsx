@@ -1,4 +1,4 @@
-import { SuccessMessage } from './icons'
+import { SuccessMessage } from './Icons'
 
 interface SuccessProps {
   text: string

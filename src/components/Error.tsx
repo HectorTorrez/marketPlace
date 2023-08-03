@@ -1,4 +1,4 @@
-import { ErrorMessage } from './icons'
+import { ErrorMessage } from './Icons'
 
 interface ErrorProps {
   text: string
