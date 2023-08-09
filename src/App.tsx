@@ -8,6 +8,7 @@ import { AboutUs } from './pages/Home/components/AboutUs'
 import { NotFound } from './pages/NotFound/NotFound'
 import { ResetPassword } from './pages/ResetPassword'
 import { NewPassword } from './pages/ResetPassword/NewPassword'
+import { Cart } from './pages/Home/components/Cart'
 
 function App (): JSX.Element {
   return (
@@ -19,6 +20,7 @@ function App (): JSX.Element {
       <Route path="/faq" element={<AboutUs/>}/>
       <Route path="/reset-password" element={<ResetPassword/>}/>
       <Route path="/change-password" element={<NewPassword/>}/>
+      <Route path="/cart" element={<Cart/>}/>
       <Route path= "/*" element={<NotFound/>}/>
     </Routes>
   )
