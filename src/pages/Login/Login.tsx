@@ -39,7 +39,6 @@ export const Login: React.FC = () => {
         setNewError(error?.message); return
       }
       const { email, id } = data.user
-      console.log(email, id)
       void dispatch(getUser(email, id))
       navigate('/')
     } catch (error: any) {

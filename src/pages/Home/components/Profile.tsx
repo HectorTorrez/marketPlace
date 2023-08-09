@@ -5,7 +5,7 @@ import { Chevrondown } from '../../../components/Icons'
 interface profileProps {
   login: boolean
   isHovered: boolean
-  handleClip: () => void
+  handleClick: () => void
   email: string | null
   handleLogout: () => void
 }
@@ -27,14 +27,14 @@ const config: AvatarFullConfig = {
   bgColor: '#FFEDEF'
 }
 
-export const Profile = ({ login, isHovered, handleClip, email, handleLogout }: profileProps): JSX.Element => {
+export const Profile = ({ login, isHovered, handleClick, email, handleLogout }: profileProps): JSX.Element => {
   const myConfig = genConfig(config)
   return (
     <>
     {
               (login)
                 ? (
-                <section onClick={handleClip} className='flex gap-2 items-center relative '>
+                <section onClick={handleClick} className='flex gap-2 items-center relative '>
                 <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
 
                   <p className='text-sm font-bold'>{email}</p>

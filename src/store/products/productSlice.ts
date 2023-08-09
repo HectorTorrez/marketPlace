@@ -8,6 +8,7 @@ export interface product {
   price: number
   image: string
   user: string
+
 }
 
 const initialState: product[] = []
@@ -20,8 +21,10 @@ export const productSlice = createSlice({
     category: '',
     date: '',
     price: ''
+
   },
   reducers: {
+
     getProduct: (state, action) => {
       action.payload.forEach((m: product) => {
         const findProduct = state.products.find((p) => p.id === m.id)
