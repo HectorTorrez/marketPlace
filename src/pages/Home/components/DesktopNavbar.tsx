@@ -11,6 +11,7 @@ import { MobileNavbar } from '.'
 import { NavLinks } from './NavLinks'
 import { Letter, Store } from '../../../components/Icons'
 import { filterProduct } from '../../../store/products/productSlice'
+import { useNavigate } from 'react-router-dom'
 
 export const DesktopNavbar: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false)
@@ -18,8 +19,11 @@ export const DesktopNavbar: React.FC = () => {
   const [search, setSearch] = useState('')
 
   const { login, email } = useSelector((state: RootState) => state.auth)
+  const cart = useSelector((state: RootState) => state.cart.cart)
 
   const dispatch: ThunkDispatch<RootState, unknown, Action> = useDispatch()
+
+  const navigate = useNavigate()
 
   const handleLogout = async (): Promise<void> => {
     const { error } = await supabase.auth.signOut()
@@ -31,8 +35,20 @@ export const DesktopNavbar: React.FC = () => {
     setNavbar(!navbar)
   }
 
-  const handleClip = (): void => {
+  const handleClick = (): void => {
     setIsHovered(!isHovered)
+  }
+
+  const handleClickCart = (): void => {
+    navigate('/cart')
+  }
+
+  const getTotalQuantity = (): number => {
+    let total = 0
+    cart.forEach(item => {
+      total += item.quantity
+    })
+    return total
   }
   useEffect(() => {
     void dispatch(filterProduct(search.toLowerCase()))
@@ -54,7 +70,7 @@ export const DesktopNavbar: React.FC = () => {
         </svg>
 
         </button>
-        <Profile login={login} isHovered={isHovered} handleClip={handleClip} email={email} handleLogout={handleLogout}/>
+        <Profile login={login} isHovered={isHovered} handleClick={handleClick} email={email} handleLogout={handleLogout}/>
         <NavLinks mobile='flex flex-col' desktop=''/>
       </MobileNavbar>
       )
@@ -69,10 +85,13 @@ export const DesktopNavbar: React.FC = () => {
             </section>
           <section className=' flex list-none gap-3 items-center '>
               <li className='p-2 rounded-full bg-inputs'><Letter/></li>
-              <li className='p-2 rounded-full bg-inputs'><Store/></li>
+              <button onClick={handleClickCart} className='p-2 rounded-full bg-inputs relative '>
+                <Store/>
+                <span className='absolute -bottom-2 -right-1 text-buttons'>{getTotalQuantity()}</span>
+              </button>
           </section>
             <section className='hidden md:flex'>
-            <Profile login={login} isHovered={isHovered} handleClip={handleClip} email={email} handleLogout={handleLogout}/>
+            <Profile login={login} isHovered={isHovered} handleClick={handleClick} email={email} handleLogout={handleLogout}/>
             </section>
           </section>
         </section>
