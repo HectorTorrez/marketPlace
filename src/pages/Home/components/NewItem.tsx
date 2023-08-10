@@ -123,9 +123,9 @@ export const NewItem: React.FC = () => {
         </label>
         <label className='flex flex-col w-full items-center gap-2 justify-center font-bold text-xl' htmlFor="name">
             Price
-            <input type="number" min={1} max={100000000000000} required onChange={handleChange} value={product.price} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' name="price" id="price" placeholder="Price" />
+            <input type="number" min={1} max={100000000} required onChange={handleChange} value={product.price} className='bg-inputs md:w-80 w-4/5 p-2 rounded-xl text-base font-normal' name="price" id="price" placeholder="Price" />
+                <p className='font-normal text-base text-red-500'>Max price $100,000,000</p>
         </label>
-
         <label className='flex flex-col w-full items-center gap-2 font-bold text-' htmlFor="image">
 
           Upload Image

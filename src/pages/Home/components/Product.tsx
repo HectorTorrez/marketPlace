@@ -25,7 +25,8 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
     setImg(CNDURL + image)
   }, [image])
 
-  const priceFormatted = price?.toLocaleString()
+  const priceFormatted = price.toLocaleString()
+  const pricetoInt = parseInt(priceFormatted)
   const isProductInCart = checkProductInCart(id)
   return (
     <section className="max-w-[258px] h-[331px] max-h-[331px] flex flex-col items-center m-auto mt-10 shadow-lg rounded-lg ">
@@ -46,7 +47,7 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
                   isProductInCart
                     ? dispatch(removeItem(id))
                     : dispatch(addToCart({
-                      id, name, img, priceFormatted
+                      id, name, img, pricetoInt
                     }))
                 }} className={`${isProductInCart ? ' border border-red-400 px-5 py-1 rounded-3xl outline-none text-red-400 font-bold hover:bg-red-400 hover:text-white hover:border-white min-w-24' : 'border border-buttons px-5 py-1 rounded-3xl outline-none text-buttons font-bold hover:bg-buttons hover:text-white hover:border-white min-w-24'}`}>{isProductInCart ? 'Delete' : 'Add'}</button>
             </section>
