@@ -87,7 +87,7 @@ export const DesktopNavbar: React.FC = () => {
               <li className='p-2 rounded-full bg-inputs'><Letter/></li>
               <button onClick={handleClickCart} className='p-2 rounded-full bg-inputs relative '>
                 <Store/>
-                <span className='absolute -top-2 right-0 font-bold text-buttons'>{getTotalQuantity()}</span>
+                <span className='absolute -top-3 -right-1 font-bold text-buttons'>{getTotalQuantity()}</span>
               </button>
           </section>
             <section className='hidden md:flex'>

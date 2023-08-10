@@ -3,7 +3,7 @@ export interface cart {
   id: string
   img: string
   name: string
-  pricetoInt: number
+  price: number
   quantity: number
 }
 
