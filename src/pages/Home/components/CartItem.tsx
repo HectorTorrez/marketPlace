@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux'
 import { Chevrondown, Chevronup, Delete } from '../../../components/Icons'
 import { removeItem, type cart, incrementQuantity, decrementQuantity } from '../../../store'
+import { formatCurrency } from '../../../utilities/formatCurrency'
 
-export const CartItem = ({ id, name, img, pricetoInt, quantity }: cart): JSX.Element => {
+export const CartItem = ({ id, name, img, price, quantity }: cart): JSX.Element => {
   const dispatch = useDispatch()
 
   return (
@@ -33,7 +34,7 @@ export const CartItem = ({ id, name, img, pricetoInt, quantity }: cart): JSX.Ele
                 </div>
             </div>
             <div className='flex'>
-                <p>${pricetoInt}</p>
+                <p>{formatCurrency(price)}</p>
             </div>
             <div>
                 <button onClick={() => {
