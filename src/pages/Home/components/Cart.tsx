@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { DesktopNavbar } from '.'
 import { type RootState } from '../../../store/store'
 import { CartItem } from './CartItem'
+import { formatCurrency } from '../../../utilities/formatCurrency'
 
 export const Cart = (): JSX.Element => {
   const cart = useSelector((state: RootState) => state.cart.cart)
@@ -10,9 +11,8 @@ export const Cart = (): JSX.Element => {
     let totalQuantity = 0
     let totalPrice = 0
     cart.forEach((item) => {
-      console.log(item)
       totalQuantity += item.quantity
-      totalPrice += item.pricetoInt * item.quantity
+      totalPrice += item.price * item.quantity
     })
 
     return { totalQuantity, totalPrice }
@@ -26,10 +26,13 @@ export const Cart = (): JSX.Element => {
           return <CartItem key={item.id} {...item}/>
         })
       }
+      <section className='fixed bottom-0 h-24 w-full flex flex-col justify-center border border-t-gray-200 items-center'>
+        <p>ORDER SUMARY</p>
       <p>
         total ({getTotal().totalQuantity} items)
-        : <strong>${getTotal().totalPrice}</strong>
+        : <strong>{formatCurrency(getTotal().totalPrice)}</strong>
       </p>
+      </section>
       </section>
     </section>
 

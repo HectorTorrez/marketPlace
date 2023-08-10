@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { type RootState, addToCart, removeItem } from '../../../store'
 import { useEffect, useState } from 'react'
+import { formatCurrency } from '../../../utilities/formatCurrency'
 
 interface ProductProps {
   id: null
@@ -25,8 +26,6 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
     setImg(CNDURL + image)
   }, [image])
 
-  const priceFormatted = price.toLocaleString()
-  const pricetoInt = parseInt(priceFormatted)
   const isProductInCart = checkProductInCart(id)
   return (
     <section className="max-w-[258px] h-[331px] max-h-[331px] flex flex-col items-center m-auto mt-10 shadow-lg rounded-lg ">
@@ -40,14 +39,14 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
             </section>
             <section className="flex items-center  justify-between pt-3 px-3 w-full h-full">
                 <p className="font-bold flex items-center gap-2">Price
-                <span className="font-normal text-buttons">{priceFormatted}</span>
+                <span className="font-normal text-buttons">{formatCurrency(price)}</span>
                 </p>
 
                 <button onClick={() => {
                   isProductInCart
                     ? dispatch(removeItem(id))
                     : dispatch(addToCart({
-                      id, name, img, pricetoInt
+                      id, name, img, price
                     }))
                 }} className={`${isProductInCart ? ' border border-red-400 px-5 py-1 rounded-3xl outline-none text-red-400 font-bold hover:bg-red-400 hover:text-white hover:border-white min-w-24' : 'border border-buttons px-5 py-1 rounded-3xl outline-none text-buttons font-bold hover:bg-buttons hover:text-white hover:border-white min-w-24'}`}>{isProductInCart ? 'Delete' : 'Add'}</button>
             </section>
