@@ -9,6 +9,7 @@ import { NotFound } from './pages/NotFound/NotFound'
 import { ResetPassword } from './pages/ResetPassword'
 import { NewPassword } from './pages/ResetPassword/NewPassword'
 import { Cart } from './pages/Home/components/Cart'
+import { MyProducts } from './pages/Home/components/MyProducts'
 
 function App (): JSX.Element {
   return (
@@ -21,6 +22,7 @@ function App (): JSX.Element {
       <Route path="/reset-password" element={<ResetPassword/>}/>
       <Route path="/change-password" element={<NewPassword/>}/>
       <Route path="/cart" element={<Cart/>}/>
+      <Route path="/my-products" element={<MyProducts/>}/>
       <Route path= "/*" element={<NotFound/>}/>
     </Routes>
   )
