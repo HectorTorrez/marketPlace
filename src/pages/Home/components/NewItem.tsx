@@ -64,7 +64,7 @@ export const NewItem: React.FC = () => {
 
       const imageUrl = storageData.path
       const { error } = await supabase.from('product').insert([
-        { name: product.name, category: product.category, image: imageUrl, user: userId, price: product.price }
+        { name: product.name, category: product.category, image: imageUrl, user_id: userId, price: product.price }
       ])
 
       if (error != null) {
@@ -93,7 +93,7 @@ export const NewItem: React.FC = () => {
   }, [isSend])
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col w-4/5 left-0 right-0  top-40  absolute md:h-fit md:left-0 md:right-0 md:top-0 md:bottom-0  max-w-md py-10 md:py-20 m-auto items-center gap-10 shadow-2xl z-0 bg-white rounded-lg'>
+    <form onSubmit={handleSubmit} className='flex flex-col w-4/5 left-0 right-0  top-40  absolute md:h-fit md:left-0 md:right-0 md:top-0 md:bottom-0  max-w-md py-10 md:py-20 m-auto items-center gap-10 shadow-2xl z-50 bg-white rounded-lg'>
       {
         (newError.length > 0) && (
           <Error text={newError}/>

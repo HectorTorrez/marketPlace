@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface product {
-  id: null
+  id: string
   created_at: string
   name: string
   category: string
   price: number
   image: string
-  user: string
+  user_id: string
 
 }
 
 const initialState: product[] = []
+const userProduct: product[] = []
 
 export const productSlice = createSlice({
   name: 'product',
@@ -20,7 +21,8 @@ export const productSlice = createSlice({
     searchTerm: '',
     category: '',
     date: '',
-    price: ''
+    price: '',
+    userProducts: userProduct
 
   },
   reducers: {
@@ -51,8 +53,14 @@ export const productSlice = createSlice({
     },
     filterByPrice: (state, action) => {
       state.price = action.payload
+    },
+
+    filterByUser: (state, action) => {
+      console.log(action.payload)
+      const data = state.products.filter((product) => product.id === action.payload)
+      console.log(data)
     }
   }
 })
 
-export const { getProduct, filterProduct, filterByCategory, filterByDate, filterByPrice } = productSlice.actions
+export const { getProduct, filterProduct, filterByCategory, filterByDate, filterByPrice, filterByUser } = productSlice.actions
