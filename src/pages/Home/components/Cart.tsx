@@ -3,9 +3,12 @@ import { DesktopNavbar } from '.'
 import { type RootState } from '../../../store/store'
 import { CartItem } from './CartItem'
 import { formatCurrency } from '../../../utilities/formatCurrency'
+import { useNavigate } from 'react-router-dom'
 
 export const Cart = (): JSX.Element => {
   const cart = useSelector((state: RootState) => state.cart.cart)
+
+  const navigate = useNavigate()
 
   const getTotal = (): { totalQuantity: number, totalPrice: number } => {
     let totalQuantity = 0
@@ -52,7 +55,7 @@ export const Cart = (): JSX.Element => {
                 <button className="transition-colors text-sm bg-blue-600 hover:bg-blue-700 p-2 rounded-sm w-full text-white text-hover shadow-md">
                         FINISH
                 </button>
-                <button className="transition-colors text-sm bg-white border border-gray-600 p-2 rounded-sm w-full text-gray-700 text-hover shadow-md">
+                <button onClick={() => { navigate('/') }} className="transition-colors text-sm bg-white border border-gray-600 p-2 rounded-sm w-full text-gray-700 text-hover shadow-md">
                         ADD MORE PRODUCTS
                 </button>
             </div>
