@@ -7,44 +7,47 @@ export const CartItem = ({ id, name, img, price, quantity }: cart): JSX.Element 
   const dispatch = useDispatch()
 
   return (
-   <section className='grid mx-2 gap-2 '>
-    <h3></h3>
-    <p></p>
-    <section className='flex  items-center'>
-        <div className='w-fit h-full'>
-            <img className='max-h-[100px] w-[100px] ' src={img} alt={name} />
-        </div>
-        <section className=' grid grid-cols-4 gap-3 items-center justify-items-center w-full ml-1'>
-            <div className=''>
-                <h4>{name}</h4>
-            </div>
-            <div className='flex items-center'>
-                {quantity}
-                <div className='flex flex-col'>
+        <div className="flex flex-col p-4 text-lg font-semibold shadow-md border rounded-sm w-full">
+            <div className="flex flex-col md:flex-row gap-3 justify-between">
+
+                <div className="flex flex-row gap-6 items-center">
+                    <div className="w-28 h-28">
+                        <img className="w-full h-full" src={img}/>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                        <p className="text-lg text-gray-800 font-semibold">{name}</p>
+                    </div>
+                </div>
+
+                <div className="self-center text-center">
+
+                    <p className="text-gray-800 font-normal text-xl">{formatCurrency(price)}</p>
+                </div>
+
+                <div className="self-center">
                     <button onClick={() => {
-                      dispatch(incrementQuantity(id))
+                      dispatch(removeItem(id))
                     }}>
-                        <Chevronup/>
-                    </button>
-                    <button onClick={() => {
-                      dispatch(decrementQuantity(id))
-                    }}>
-                        <Chevrondown/>
+                        <Delete/>
                     </button>
                 </div>
             </div>
-            <div className='flex'>
-                <p>{formatCurrency(price)}</p>
-            </div>
-            <div>
+
+            <div className="flex flex-row self-center gap-1">
                 <button onClick={() => {
-                  dispatch(removeItem(id))
+                  dispatch(incrementQuantity(id))
                 }}>
-                    <Delete/>
+                    <Chevronup/>
+                </button>
+                <input type="text" readOnly value={quantity} className="w-8 h-8 text-center text-gray-900 text-sm outline-none border border-gray-300 rounded-sm"/>
+                <button onClick={() => {
+                  dispatch(decrementQuantity(id))
+                }} >
+                    <Chevrondown/>
                 </button>
             </div>
-        </section>
-    </section>
-   </section>
+
+        </div>
+
   )
 }
