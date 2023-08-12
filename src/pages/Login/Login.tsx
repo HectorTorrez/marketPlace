@@ -108,9 +108,9 @@ export const Login: React.FC = () => {
 
           </section>
         </form>
-        <Link className="mt-3 text-blue-700" to="/reset-password">
+        {/* <Link className="mt-3 text-blue-700" to="/reset-password">
           <p>Forgot your password?</p>
-        </Link>
+        </Link> */}
 
         <section className="mt-10 flex justify-end w-4/5 ">
           <p className=" text-slate-400">
