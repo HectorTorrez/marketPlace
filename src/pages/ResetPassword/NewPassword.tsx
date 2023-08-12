@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from '../../supabase/client'
 import { Error } from '../../components/Error'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 export const NewPassword = (): JSX.Element => {
   const [password, setPassword] = useState('')
@@ -17,7 +17,7 @@ export const NewPassword = (): JSX.Element => {
         setNewError(error?.message)
       }
       console.log(error)
-    //   navigate('/login')
+      // navigate('/login')
     } catch (error: any) {
       setNewError(error)
     }
