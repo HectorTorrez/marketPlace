@@ -9,7 +9,7 @@ import { type Action } from '@reduxjs/toolkit'
 import { Profile } from './Profile'
 import { MobileNavbar } from '.'
 import { NavLinks } from './NavLinks'
-import { Letter, Store } from '../../../components/Icons'
+import { ArchiveBox, Store } from '../../../components/Icons'
 import { filterProduct } from '../../../store/products/productSlice'
 import { useNavigate } from 'react-router-dom'
 
@@ -84,7 +84,7 @@ export const DesktopNavbar: React.FC = () => {
             <input onChange={(e) => { setSearch(e.target.value) }} className='bg-inputs outline-none border-none w-full' type="text" name="search" id="search" placeholder="Search" />
             </section>
           <section className=' flex list-none gap-3 items-center '>
-              <li className='p-2 rounded-full bg-inputs'><Letter/></li>
+              <button onClick={() => { navigate('/my-products') }} className='p-2 rounded-full bg-inputs'><ArchiveBox/></button>
               <button onClick={handleClickCart} className='p-2 rounded-full bg-inputs relative '>
                 <Store/>
                 <span className='absolute -top-3 -right-1 font-bold text-buttons'>{getTotalQuantity()}</span>
