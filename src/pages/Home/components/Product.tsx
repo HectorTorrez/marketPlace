@@ -29,7 +29,7 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
     return product.some((item) => item.user_id === id)
   }
 
-  const deleteProduct = async (id: string): Promise<void> => {
+  const deleteProduct = async (id: string, img: string): Promise<void> => {
     try {
       const choose = confirm('Are you sure you want to delete this product?')
       if (!choose) {
@@ -39,6 +39,11 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
         .from('product')
         .delete()
         .eq('id', id)
+
+      const { error: StorageError } = await supabase.storage
+        .from('images')
+        .remove([img])
+      console.log(StorageError)
       if (error != null) {
         console.log(error)
       }
@@ -66,7 +71,7 @@ export const Product = ({ id, name, category, image, price }: ProductProps): JSX
             {
         isUser && (
           <div className="absolute top-0 right-0 ">
-            <button onClick={async () => { await deleteProduct(id) }} className="bg-red-400 text-white px-2 py-1 rounded-lg"><Delete/></button>
+            <button onClick={async () => { await deleteProduct(id, image) }} className="bg-red-400 text-white px-2 py-1 rounded-lg"><Delete/></button>
           </div>
         )
       }
