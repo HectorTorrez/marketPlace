@@ -37,6 +37,7 @@ export const Header: React.FC = () => {
   const category = useSelector((state: RootState) => state.product.category)
   const stateDate = useSelector((state: RootState) => state.product.date)
   const statePrice = useSelector((state: RootState) => state.product.price)
+  const isSignedIn = useSelector((state: RootState) => state.auth.login)
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     setSelectDate(event?.target.value)
@@ -111,7 +112,13 @@ export const Header: React.FC = () => {
     <header ref={componentRef} className="w-4/5 md:mx-2  items-center m-auto   md:w-screen ">
         <section className="flex justify-between mt-5 md:mt-12 ">
         <h2 className="font-bold text-3xl">Item</h2>
-        <button onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-2  rounded-md text-sm">Create a new Item</button>
+        {
+          isSignedIn &&
+            (
+            <button disabled={!isSignedIn} onClick={() => { setIsActive(!isActive) }} className="bg-buttons text-white px-2  rounded-md text-sm">Create a new Item</button>
+            )
+
+          }
         </section>
         <form className="flex gap-5 mt-5">
             <select value={selectDate} onChange={handleSelect} className="bg-inputs px-2 py-1 rounded-md outline-none" name="date" title='Date'>
