@@ -1,4 +1,3 @@
-import ReactNiceAvatar, { genConfig, type AvatarFullConfig } from 'react-nice-avatar'
 import { Link } from 'react-router-dom'
 import { Chevrondown } from '../../../components/Icons'
 
@@ -9,33 +8,14 @@ interface profileProps {
   email: string | null
   handleLogout: () => void
 }
-const config: AvatarFullConfig = {
-  sex: 'woman',
-  faceColor: '#F9C9B6',
-  earSize: 'big',
-  eyeStyle: 'smile',
-  noseStyle: 'round',
-  mouthStyle: 'smile',
-  shirtStyle: 'short',
-  glassesStyle: 'none',
-  hairColor: '#000',
-  hairStyle: 'womanLong',
-  hatStyle: 'none',
-  hatColor: '#fff',
-  eyeBrowStyle: 'upWoman',
-  shirtColor: '#F4D150',
-  bgColor: '#FFEDEF'
-}
 
 export const Profile = ({ login, isHovered, handleClick, email, handleLogout }: profileProps): JSX.Element => {
-  const myConfig = genConfig(config)
   return (
     <>
     {
               (login)
                 ? (
                 <section onClick={handleClick} className='flex gap-2 items-center relative '>
-                <ReactNiceAvatar style={{ width: '2rem', height: '2rem' }} {...myConfig} />
 
                   <p className='text-sm font-bold'>{email}</p>
                   <Chevrondown/>
