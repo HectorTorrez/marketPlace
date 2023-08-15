@@ -24,7 +24,7 @@ export const Home: React.FC = () => {
     <DesktopNavbar/>
     <section className='flex flex-col md:flex-row  md:max-w-6xl md:m-auto '>
       <MenuLeft/>
-    < Header/>
+        <Header/>
     </section>
     </>
   )
