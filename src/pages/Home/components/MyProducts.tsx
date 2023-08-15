@@ -9,6 +9,7 @@ export const MyProducts = (): JSX.Element => {
   return (
     <>
       <DesktopNavbar/>
+      <section className='grid  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 max-w-4xl m-auto mb-10'>
       {
         product.map(item => {
           if (item.user_id === id) {
@@ -18,7 +19,7 @@ export const MyProducts = (): JSX.Element => {
         }
         )
       }
-
+      </section>
     </>
   )
 }
