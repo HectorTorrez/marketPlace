@@ -6,13 +6,22 @@ export interface AuthState {
   login: boolean
 }
 
-export const authSlice = createSlice({
-  name: 'auth',
-  initialState: {
+const initialState: AuthState = (() => {
+  const persistedState = localStorage.getItem('applicationState')
+  if (persistedState !== null) {
+    const { auth } = JSON.parse(persistedState)
+    return auth
+  }
+  return {
     email: null,
     userId: '',
     login: false
-  },
+  }
+})()
+
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
   reducers: {
     addUser: (state, action) => {
       const { email, id } = action.payload

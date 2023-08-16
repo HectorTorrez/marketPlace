@@ -7,7 +7,12 @@ export interface cart {
   quantity: number
 }
 
-const initialState: cart[] = []
+const initialState: cart[] = (() => {
+  const cart = localStorage.getItem('applicationState')
+  if (cart != null) return JSON.parse(cart).cart.cart
+  return []
+})()
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState: {
